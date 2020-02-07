@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
+import { WeatherData } from './WeatherData';
 
 export class Weather extends Component {
-  static displayName = Weather.name;
+    static displayName = Weather.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
-  }
+    state = {
+        forecasts: [],
+        loading: true
+    };
+  
 
   componentDidMount() {
     this.populateWeatherData();
   }
 
   static renderForecastsTable(forecasts) {
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      return (
+          console.log(forecasts),
+          <div class="card-columns">
+              <div class="card">
+                  <div class="card-img">
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">@product.Title</h5>
+                  </div>
+                  <div class="card-footer">
+                  </div>
+              </div>
+          </div >,
+
+
+        <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>Date</th>
@@ -24,17 +40,16 @@ export class Weather extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+            <tr>
+                <td></td>
+                <td>{forecasts.consolidated_weather[0].created}</td>
+                <td>{forecasts.consolidated_weather[0].the_temp}</td>
+                <td>{forecasts.consolidated_weather[0].the_temp}</td>
+                <td>{forecasts.summary}</td>
             </tr>
-          )}
         </tbody>
-      </table>
-    );
+      </table >
+     );
   }
 
   render() {
@@ -50,10 +65,15 @@ export class Weather extends Component {
       </div>
     );
   }
-
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    //https://www.metaweather.com/static/img/weather/c.svg images
+    async populateWeatherData() {
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        const response = await fetch(proxyurl + 'https://www.metaweather.com/api/location/44418');
+        const data = await response.json();
+        
+        this.setState({
+            forecasts: data,
+            loading: false
+        });
   }
 }
