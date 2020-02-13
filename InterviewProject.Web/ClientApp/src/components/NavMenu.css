@@ -184,6 +184,8 @@ ul {
     background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
 }
 
+/* Downdown picker*/
+
 input {
     margin: .5rem;
     width: 20rem;
@@ -218,3 +220,4 @@ input {
   .popper-item {
     padding: .5rem;
     border-bottom: 1px solid whitesmoke;
+  }
